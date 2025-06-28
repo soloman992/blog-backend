@@ -11,7 +11,7 @@ app.use(cors({ origin: '*' }));
 app.use(bodyParser.json());
 app.use(express.json());
 
-mongoose.connect('mongosh "mongodb+srv://cluster0.1o9aehc.mongodb.net/" --apiVersion 1 --username fm01793176381', {
+mongoose.connect('mongodb+srv://fm01793176381:<5Lyy4JjEQ9YAV3bW>@cluster0.1o9aehc.mongodb.net/blogapp?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     serverSelectionTimeoutMS: 30000 
