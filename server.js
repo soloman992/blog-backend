@@ -11,7 +11,7 @@ app.use(cors({ origin: '*' }));
 app.use(bodyParser.json());
 app.use(express.json());
 
-mongoose.connect('mongodb+srv://fm01793176381:<5Lyy4JjEQ9YAV3bW>@cluster0.1o9aehc.mongodb.net/blogapp?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://fm01793176381:FAhiM12@cluster0.1o9aehc.mongodb.net/', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     serverSelectionTimeoutMS: 30000 
