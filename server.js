@@ -11,14 +11,16 @@ app.use(cors({ origin: '*' }));
 app.use(bodyParser.json());
 app.use(express.json());
 
-mongoose.connect('mongodb://localhost:27017/blogapp', {
+mongoose.connect('mongosh "mongodb+srv://cluster0.1o9aehc.mongodb.net/" --apiVersion 1 --username fm01793176381', {
     useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => console.log('MongoDB Connected'))
-  .catch(err => console.log(err));
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 30000 
+})
+.then(() => console.log('MongoDB Connected'))
+.catch(err => console.error('MongoDB Connection Error:', err));
 
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
