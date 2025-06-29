@@ -7,7 +7,27 @@ const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
 
 const app = express();
-app.use(cors({ origin: ['http://localhost:3000', 'https://soloman992.github.io/blog-application/']}));
+
+// Force CORS manually for Render
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    // Allow both localhost and GitHub Pages
+    if (req.headers.origin === 'https://soloman992.github.io/blog-application/') {
+        res.header('Access-Control-Allow-Origin', 'https://soloman992.github.io/blog-application/');
+    }
+
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
+});
+
+// Optional: Also keep this for more flexibility
+app.use(cors({
+    origin: ['http://localhost:3000', 'https://soloman992.github.io/blog-application/'], // ✅ Allow local & deployed frontend
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(bodyParser.json());
 app.use(express.json());
 
