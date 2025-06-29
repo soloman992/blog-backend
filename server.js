@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const userRoutes = require('./routes/userRoutes');
@@ -8,25 +7,25 @@ const postRoutes = require('./routes/postRoutes');
 
 const app = express();
 
-// Force CORS manually for Render
+// ✅ Full manual CORS header
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-    // Allow both localhost and GitHub Pages
-    if (req.headers.origin === 'https://soloman992.github.io/blog-application/') {
-        res.header('Access-Control-Allow-Origin', 'https://soloman992.github.io/blog-application/');
+    const allowedOrigins = ['http://localhost:3000', 'https://soloman992.github.io/blog-application/'];
+    const origin = req.headers.origin;
+
+    if (allowedOrigins.includes(origin)) {
+        res.header('Access-Control-Allow-Origin', origin); // Dynamically allow only allowed origins
     }
 
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    
+    // Handle preflight requests immediately
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200);
+    }
+
     next();
 });
-
-// Optional: Also keep this for more flexibility
-app.use(cors({
-    origin: ['http://localhost:3000', 'https://soloman992.github.io/blog-application/'], // ✅ Allow local & deployed frontend
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
 
 app.use(bodyParser.json());
 app.use(express.json());
