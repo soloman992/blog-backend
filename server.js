@@ -7,7 +7,7 @@ const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
 
 const app = express();
-app.use(cors({ origin: '*' }));
+app.use(cors({ origin: ['http://localhost:3000', 'https://soloman992.github.io/blog-application/']}));
 app.use(bodyParser.json());
 app.use(express.json());
 
