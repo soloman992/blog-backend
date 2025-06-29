@@ -9,7 +9,7 @@ const {
   updatePost,
   deletePost,
   getMyPosts,
-  viewPost
+  // viewPost
 } = require('../controllers/postController');
 
 
@@ -19,6 +19,6 @@ router.get('/mine', verifyToken, getMyPosts);
 router.get('/:id', getPostById);
 router.put('/:id', updatePost);
 router.delete('/:id', deletePost);
-router.get('/:id', viewPost);
+// router.get('/:id', viewPost);
 
 module.exports = router;
