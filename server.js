@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 
 const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
 
 const app = express();
 
@@ -33,6 +34,9 @@ app.use((req, res, next) => {
 // Middleware to parse JSON bodies
 app.use(bodyParser.json());
 app.use(express.json());
+
+// Upload image
+app.use('/api/upload', uploadRoutes);
 
 // MongoDB connection
 mongoose.connect('mongodb+srv://fm01793176381:FAhiM12@cluster0.1o9aehc.mongodb.net/', {
