@@ -2,11 +2,9 @@ const Post = require('../models/Post');
 
 exports.createPost = async (req, res) => {
     try {
-        const { title, content } = req.body;
-
-        const newPost = new Post({ title, content, author: req.user.id });
+        const { title, content, imageUrl } = req.body;
+        const newPost = new Post({ title, content, author: req.user.id, imageUrl });
         await newPost.save();
-
         res.status(201).json(newPost);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -36,8 +34,14 @@ exports.getPostById = async (req, res) => {
 
 exports.updatePost = async (req, res) => {
     try {
-        const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        res.json(post);
+        const { title, content, imageUrl } = req.body;
+        const post = await Post.findById(req.params.id);
+        if (!post) return res.status(404).json({ message: 'Post not found' });
+        post.title = title || post.title;
+        post.content = content || post.content;
+        post.imageUrl = imageUrl || post.imageUrl;
+        const updatedPost = await post.save();
+        res.json(updatedPost);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
