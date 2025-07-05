@@ -10,7 +10,11 @@ const app = express();
 
 // ✅ Full manual CORS header
 app.use((req, res, next) => {
-    const allowedOrigins = ['http://localhost:3000', 'https://soloman992.github.io/blog-application/'];
+    const allowedOrigins = [
+    'http://localhost:3000',
+    'https://soloman992.github.io',
+    'https://soloman992.github.io/blog-application'
+];
     const origin = req.headers.origin;
 
     // Log the origin for debugging
